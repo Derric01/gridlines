@@ -77,8 +77,3 @@ The project is configured as one Vercel project rooted at this repository. Verce
 
 A public deployment URL is not configured in this workspace. After importing the repository into Vercel, use its generated deployment URL as the app link.
 
-## Data and AI disclosure
-
-The Elexon raw source records are included in data/raw/ so the analysis can be reproduced without an external API dependency. Their request windows and record counts are recorded in manifest.json.
-
-AI tools were used during implementation: OpenAI Codex assisted with research, implementation, and review. The calculations are derived from the included Elexon records; the interface does not use generated sample metrics or chart data.
