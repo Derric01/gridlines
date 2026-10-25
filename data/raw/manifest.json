@@ -1,0 +1,100 @@
+{
+  "retrievedAtUtc": "2026-10-25T20:30:54.5087755Z",
+  "apiBaseUrl": "https://data.elexon.co.uk/bmrs/api/v1",
+  "actualDataset": "FUELHH",
+  "actualFilter": "fuelType=WIND",
+  "forecastDataset": "WINDFOR",
+  "queryWindowing": "7-day publication-time windows; adjacent boundary rows may overlap",
+  "requests": [
+    {
+      "dataset": "FUELHH",
+      "from": "2026-01-01T00:00:00Z",
+      "to": "2026-01-08T00:00:00Z",
+      "records": 337,
+      "bytes": 61208,
+      "file": "data/raw/fuelhh/FUELHH_2026-01-01_to_2026-01-08.json"
+    },
+    {
+      "dataset": "FUELHH",
+      "from": "2026-01-08T00:00:00Z",
+      "to": "2026-01-15T00:00:00Z",
+      "records": 337,
+      "bytes": 61117,
+      "file": "data/raw/fuelhh/FUELHH_2026-01-08_to_2026-01-15.json"
+    },
+    {
+      "dataset": "FUELHH",
+      "from": "2026-01-15T00:00:00Z",
+      "to": "2026-01-22T00:00:00Z",
+      "records": 337,
+      "bytes": 61057,
+      "file": "data/raw/fuelhh/FUELHH_2026-01-15_to_2026-01-22.json"
+    },
+    {
+      "dataset": "FUELHH",
+      "from": "2026-01-22T00:00:00Z",
+      "to": "2026-01-29T00:00:00Z",
+      "records": 337,
+      "bytes": 61192,
+      "file": "data/raw/fuelhh/FUELHH_2026-01-22_to_2026-01-29.json"
+    },
+    {
+      "dataset": "FUELHH",
+      "from": "2026-01-29T00:00:00Z",
+      "to": "2026-02-02T00:00:00Z",
+      "records": 193,
+      "bytes": 34988,
+      "file": "data/raw/fuelhh/FUELHH_2026-01-29_to_2026-02-02.json"
+    },
+    {
+      "dataset": "WINDFOR",
+      "from": "2025-12-31T00:00:00Z",
+      "to": "2026-01-07T00:00:00Z",
+      "records": 4088,
+      "bytes": 460903,
+      "file": "data/raw/windfor/WINDFOR_2025-12-31_to_2026-01-07.json"
+    },
+    {
+      "dataset": "WINDFOR",
+      "from": "2026-01-07T00:00:00Z",
+      "to": "2026-01-14T00:00:00Z",
+      "records": 4088,
+      "bytes": 460650,
+      "file": "data/raw/windfor/WINDFOR_2026-01-07_to_2026-01-14.json"
+    },
+    {
+      "dataset": "WINDFOR",
+      "from": "2026-01-14T00:00:00Z",
+      "to": "2026-01-21T00:00:00Z",
+      "records": 4088,
+      "bytes": 459396,
+      "file": "data/raw/windfor/WINDFOR_2026-01-14_to_2026-01-21.json"
+    },
+    {
+      "dataset": "WINDFOR",
+      "from": "2026-01-21T00:00:00Z",
+      "to": "2026-01-28T00:00:00Z",
+      "records": 4088,
+      "bytes": 461582,
+      "file": "data/raw/windfor/WINDFOR_2026-01-21_to_2026-01-28.json"
+    },
+    {
+      "dataset": "WINDFOR",
+      "from": "2026-01-28T00:00:00Z",
+      "to": "2026-01-31T00:00:00Z",
+      "records": 1752,
+      "bytes": 197530,
+      "file": "data/raw/windfor/WINDFOR_2026-01-28_to_2026-01-31.json"
+    },
+    {
+      "dataset": "WINDFOR",
+      "from": "2026-01-31T00:00:00Z",
+      "to": "2026-02-01T00:00:00Z",
+      "records": 584,
+      "bytes": 65697,
+      "file": "data/raw/windfor/WINDFOR_2026-01-31_to_2026-02-01.json",
+      "retrievedAtUtc": "2026-10-25T21:16:02Z"
+    }
+  ],
+  "updatedAtUtc": "2026-10-25T21:16:02Z"
+}

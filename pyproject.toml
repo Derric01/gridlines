@@ -1,0 +1,12 @@
+[project]
+name = "gridline-wind-review"
+version = "1.0.0"
+description = "Point-in-time evaluation of January 2026 UK wind generation forecasts"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi==0.115.6",
+  "uvicorn[standard]==0.34.0",
+]
+
+[tool.vercel.scripts]
+build = "python build.py"
