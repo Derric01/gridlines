@@ -7,6 +7,3 @@ dependencies = [
   "fastapi==0.115.6",
   "uvicorn[standard]==0.34.0",
 ]
-
-[tool.vercel.scripts]
-build = "python build.py"
