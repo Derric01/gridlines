@@ -67,15 +67,26 @@ Elexon describes WINDFOR as forecasts for wind farms visible to ESO with operati
 | tests/test_analysis.py | Replay coverage, metric, cutoff, and API checks |
 | requirements.txt, requirements-dev.txt | Runtime and test dependencies |
 | Dockerfile, docker-compose.yml | Multi-stage Docker build and local app service |
-| build.py, pyproject.toml | Vercel frontend build and FastAPI entrypoint configuration |
+| build.py | Optional single-service helper that builds the frontend before packaging FastAPI |
+| pyproject.toml | Python package metadata and runtime dependencies |
+| vercel.json | Vercel FastAPI/Vite service roots and public routing |
 
 Install test dependencies with python -m pip install -r requirements-dev.txt, then run the analysis and API checks with python -m pytest -q. Run the frontend export checks from frontend with npm test.
 
-## Vercel
+## Vercel Services
 
-The project is configured as one Vercel project rooted at this repository. Vercel detects the root app.py; pyproject.toml runs build.py, which builds frontend/dist. The FastAPI app serves API routes under /api and the built frontend at /. There are no environment variables or runtime calls to Elexon.
+`vercel.json` defines two independently built services for one Vercel project:
 
-A public deployment URL is not configured in this workspace. After importing the repository into Vercel, use its generated deployment URL as the app link.
+- `app` uses the repository root and the FastAPI framework. Vercel detects the standard `app.py` entrypoint.
+- `frontend` uses `frontend/` and the Vite framework, which builds the static frontend from that service root.
+
+The ordered top-level rewrites route `/api/*` to `app` first and all other paths to `frontend`. Vercel preserves the incoming path, which matches FastAPI's existing `/api/...` routes and the browser's same-origin `/api/analysis` request. Both services receive public traffic on those paths. There are no server-side service-to-service calls, so no service bindings are configured. The Vite proxy in `frontend/vite.config.js` is only for the separate local Vite development server.
+
+The previous `pyproject.toml` build hook that bundled the Vite frontend into the FastAPI service has been removed so Vercel builds the services independently. `build.py` remains available as a single-service build helper but is not used by this multi-service configuration. Docker continues to build and serve the combined local application.
+
+Run `vercel dev -L` from the repository root to test the service routes locally. Vercel Services are in beta. Before deploying, set the linked Vercel project's framework preset to Services in project settings; this setting is outside the repository, and no Vercel project is linked in this workspace. A public deployment URL is not configured here.
+
+See the [Vercel Services documentation](https://vercel.com/docs/services) for project setup and configuration details.
 
 ## Data and AI disclosure
 
