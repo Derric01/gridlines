@@ -1,6 +1,8 @@
 # Short actual-application walkthrough
 
-The latest local media revision is approximately **2:15**, with an 11.4-second user-confirmed recorded passage inserted near the beginning. The surrounding narration is retained, app footage is retimed at that passage, and optional captions are updated in `captions-with-recorded-voice.srt`. The audio was processed locally without cloning or uploading the recording. The final export passed full decode and an audio comparison confirmed the recorded clip is present. Personal recordings and generated MP4s are not committed here.
+The current preferred media is the **2:10 version with full local voice conversion**, described in [`full-clone.md`](full-clone.md). Every narration section uses the approved reference voice profile; it is a synthetic approximation. Earlier recorded-clip and catalog-voice versions remain as references.
+
+An earlier local media revision is approximately **2:15**, with an 11.4-second user-confirmed recorded passage inserted near the beginning. In that earlier version, the surrounding narration is retained, app footage is retimed at that passage, and optional captions are updated in `captions-with-recorded-voice.srt`. That audio edit was processed locally without cloning or uploading the recording. The export passed full decode and an audio comparison confirmed the recorded clip is present. Personal recordings and generated MP4s are not committed here.
 
 The revised video is 2:10 and shows the running deployment at https://gridlines-beta.vercel.app/ throughout. Real interactions include selecting January 10, opening the hourly values and publication table, navigating Daily accuracy, opening a row, selecting January 31 for February 1 delivery, and reading Method & sources.
 
