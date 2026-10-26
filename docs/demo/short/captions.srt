@@ -237,4 +237,3 @@ picture, find a difficult day, and inspect the
 60
 00:02:05,389 --> 00:02:07,948
 forecast and source details behind it.
-
