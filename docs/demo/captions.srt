@@ -1,0 +1,671 @@
+1
+00:00:00,400 --> 00:00:02,808
+Hi, I'm Derric.
+
+2
+00:00:02,940 --> 00:00:08,189
+This is Gridline, my historical wind forecast
+review project.
+
+3
+00:00:08,321 --> 00:00:13,939
+For a UK electricity utility, purchasing
+decisions depend on expected demand
+
+4
+00:00:13,939 --> 00:00:17,043
+and the generation likely to be available.
+
+5
+00:00:17,175 --> 00:00:22,460
+Wind adds uncertainty, because the forecast can
+change before delivery.
+
+6
+00:00:22,592 --> 00:00:27,418
+Gridline focuses on one part of that problem:
+looking back at the wind
+
+7
+00:00:27,418 --> 00:00:32,726
+forecast available at a particular decision
+time, then comparing it with what
+
+8
+00:00:32,726 --> 00:00:34,932
+was generated the following day.
+
+9
+00:00:35,064 --> 00:00:40,168
+Let me walk through the application first, then
+the implementation.
+
+10
+00:00:41,400 --> 00:00:46,892
+The dashboard covers purchasing decision dates
+from the first to the thirty-
+
+11
+00:00:46,892 --> 00:00:49,494
+first of January, twenty twenty-six.
+
+12
+00:00:49,627 --> 00:00:54,728
+Each decision maps to next-day delivery, so the
+delivery period runs from the
+
+13
+00:00:54,728 --> 00:00:57,908
+second of January through the first of February.
+
+14
+00:00:58,042 --> 00:01:03,554
+I'm using the EPEX thirty-minute auction
+scenario, with a fifteen-thirty
+
+15
+00:01:03,554 --> 00:01:04,626
+London cutoff.
+
+16
+00:01:04,760 --> 00:01:09,969
+The coverage panel shows seven hundred and
+forty-four matched hourly pairs,
+
+17
+00:01:09,969 --> 00:01:14,622
+and all fourteen hundred and eighty-eight half-
+hour actual records.
+
+18
+00:01:14,756 --> 00:01:19,166
+That tells us how much data supports the monthly
+figures.
+
+19
+00:01:20,400 --> 00:01:25,723
+Here, I can choose a decision date and inspect
+its following delivery day.
+
+20
+00:01:25,855 --> 00:01:31,387
+The solid green line is the selected forecast,
+and the dashed line is actual
+
+21
+00:01:31,387 --> 00:01:32,188
+generation.
+
+22
+00:01:32,319 --> 00:01:37,733
+I'll open the tenth of January, which maps to
+delivery on the eleventh.
+
+23
+00:01:37,865 --> 00:01:40,550
+The gap is visible across the day.
+
+24
+00:01:40,682 --> 00:01:46,280
+The values table also exposes the publication
+time behind each forecast.
+
+25
+00:01:46,412 --> 00:01:51,602
+That timestamp matters: a forecast published
+after the decision cutoff would
+
+26
+00:01:51,602 --> 00:01:55,153
+give the analysis information the buyer didn't
+have.
+
+27
+00:01:55,285 --> 00:01:59,968
+Gridline chooses the latest eligible publication
+for each hour.
+
+28
+00:02:00,100 --> 00:02:05,168
+It doesn't use later revisions to make the
+historical result look better.
+
+29
+00:02:06,400 --> 00:02:12,050
+The monthly mean absolute error is one thousand,
+eight hundred and seventy-
+
+30
+00:02:12,050 --> 00:02:13,255
+three megawatts.
+
+31
+00:02:13,388 --> 00:02:18,752
+That's the average size of the hourly
+difference, ignoring direction.
+
+32
+00:02:18,884 --> 00:02:23,993
+Root mean squared error is two thousand, three
+hundred and twenty-seven
+
+33
+00:02:23,993 --> 00:02:28,239
+megawatts; larger misses carry more weight in
+that measure.
+
+34
+00:02:28,372 --> 00:02:34,397
+Mean bias is positive one thousand, seven
+hundred and nine megawatts, so this
+
+35
+00:02:34,397 --> 00:02:38,700
+source forecast tends to sit above the aligned
+actuals.
+
+36
+00:02:38,833 --> 00:02:44,852
+WAPE is sixteen point six percent: total
+absolute error divided by total
+
+37
+00:02:44,852 --> 00:02:47,108
+absolute actual generation.
+
+38
+00:02:47,241 --> 00:02:51,722
+These figures describe differences between the
+source series.
+
+39
+00:02:51,854 --> 00:02:57,167
+They don't directly measure money saved or
+establish a purchasing strategy.
+
+40
+00:02:58,400 --> 00:03:03,564
+The Daily accuracy page makes the monthly result
+easier to investigate.
+
+41
+00:03:03,696 --> 00:03:08,986
+Each row keeps the decision date and delivery
+date together, alongside error
+
+42
+00:03:08,986 --> 00:03:10,517
+measures and coverage.
+
+43
+00:03:10,648 --> 00:03:16,157
+The tenth of January has a daily mean absolute
+error of about four thousand,
+
+44
+00:03:16,157 --> 00:03:18,983
+eight hundred and eighty-one megawatts.
+
+45
+00:03:19,115 --> 00:03:23,915
+The eighteenth is much lower, at about two
+hundred and fifty-two.
+
+46
+00:03:24,047 --> 00:03:28,135
+Selecting a row returns to the corresponding
+hourly replay.
+
+47
+00:03:28,267 --> 00:03:33,055
+I can then check whether the error was sustained
+or concentrated in particular
+
+48
+00:03:33,055 --> 00:03:37,169
+hours, and whether missing data could have
+affected the comparison.
+
+49
+00:03:38,400 --> 00:03:42,505
+The Method and sources page explains the
+comparison.
+
+50
+00:03:42,637 --> 00:03:47,167
+WINDFOR supplies hourly forecasts in average
+megawatts.
+
+51
+00:03:47,299 --> 00:03:53,115
+FUELHH supplies half-hour actuals, so the
+application averages both equal-
+
+52
+00:03:53,115 --> 00:03:56,023
+duration actual values for each hour.
+
+53
+00:03:56,156 --> 00:03:58,310
+Both must exist.
+
+54
+00:03:58,442 --> 00:04:03,355
+Even under the thirty-minute auction scenario,
+this remains an hourly
+
+55
+00:04:03,355 --> 00:04:04,138
+comparison.
+
+56
+00:04:04,270 --> 00:04:09,593
+There's also a scope limitation: the forecast
+and actual datasets aren't
+
+57
+00:04:09,593 --> 00:04:13,364
+demonstrated to cover exactly the same wind
+assets.
+
+58
+00:04:13,496 --> 00:04:18,871
+I keep that warning visible because complete
+coverage doesn't, by itself,
+
+59
+00:04:18,871 --> 00:04:21,890
+prove that the populations are identical.
+
+60
+00:04:22,022 --> 00:04:27,168
+The source links and snapshot details make those
+assumptions inspectable.
+
+61
+00:04:28,400 --> 00:04:33,953
+That's the client view: a way to move from
+monthly error, to a difficult
+
+62
+00:04:33,953 --> 00:04:37,733
+delivery day, to the underlying forecast
+vintage.
+
+63
+00:04:37,871 --> 00:04:43,275
+The value is being able to inspect the evidence
+and limitations together.
+
+64
+00:04:43,413 --> 00:04:49,162
+Next, I'll show how the code preserves that
+historical decision boundary.
+
+65
+00:04:50,400 --> 00:04:53,302
+The frontend is React, built with Vite.
+
+66
+00:04:53,408 --> 00:04:58,105
+In App dot J S X, changing the auction scenario
+requests the same-origin
+
+67
+00:04:58,105 --> 00:04:59,279
+analysis endpoint.
+
+68
+00:04:59,386 --> 00:05:04,187
+FastAPI defines that endpoint in app dot P Y and
+delegates the calculation to
+
+69
+00:05:04,187 --> 00:05:06,120
+backend slash analysis dot P Y.
+
+70
+00:05:06,226 --> 00:05:11,596
+The response contains monthly metrics, daily
+summaries, hourly observations,
+
+71
+00:05:11,596 --> 00:05:13,433
+coverage, and methodology.
+
+72
+00:05:13,540 --> 00:05:16,502
+The API caches the two scenario results.
+
+73
+00:05:16,609 --> 00:05:21,652
+Locally, Vite proxies API requests to FastAPI;
+the production routing is
+
+74
+00:05:21,652 --> 00:05:23,193
+configured separately.
+
+75
+00:05:24,400 --> 00:05:28,846
+The repository includes archived Elexon JSON
+under data slash raw, plus a
+
+76
+00:05:28,846 --> 00:05:32,256
+manifest recording query windows and retrieval
+metadata.
+
+77
+00:05:32,364 --> 00:05:37,356
+This backend reads that snapshot; it doesn't
+download new Elexon data on every
+
+78
+00:05:37,356 --> 00:05:37,868
+request.
+
+79
+00:05:37,977 --> 00:05:41,058
+Actual records are filtered to fuel type WIND.
+
+80
+00:05:41,167 --> 00:05:46,354
+Both series use startTime and generation;
+forecasts also use publishTime.
+
+81
+00:05:46,463 --> 00:05:50,634
+Timestamps must include a timezone and are
+normalized to UTC.
+
+82
+00:05:50,743 --> 00:05:53,293
+Numeric values must be finite.
+
+83
+00:05:53,402 --> 00:05:57,920
+Identical duplicates are collapsed, while
+conflicting values for the same
+
+84
+00:05:57,920 --> 00:05:59,839
+record identity raise an error.
+
+85
+00:05:59,948 --> 00:06:04,868
+I didn't find a committed download
+implementation, so I'm not presenting one
+
+86
+00:06:04,868 --> 00:06:05,191
+here.
+
+87
+00:06:06,400 --> 00:06:09,234
+The main safeguard is in forecast selection.
+
+88
+00:06:09,342 --> 00:06:13,749
+For each expected delivery hour, the code
+collects publication times that are
+
+89
+00:06:13,749 --> 00:06:17,812
+less than or equal to the decision cutoff, then
+selects the latest one.
+
+90
+00:06:17,920 --> 00:06:20,995
+A publication exactly at cutoff is eligible.
+
+91
+00:06:21,103 --> 00:06:23,426
+One second later is excluded.
+
+92
+00:06:23,534 --> 00:06:28,335
+If no eligible version exists, the forecast
+stays missing; a later version
+
+93
+00:06:28,335 --> 00:06:29,633
+cannot fill the gap.
+
+94
+00:06:29,741 --> 00:06:34,010
+The decision-date loop constructs next-day
+delivery explicitly, including the
+
+95
+00:06:34,010 --> 00:06:37,170
+thirty-first of January mapping to the first of
+February.
+
+96
+00:06:37,278 --> 00:06:41,026
+London local cutoffs are converted to UTC before
+matching.
+
+97
+00:06:41,134 --> 00:06:45,181
+The two scenarios change the decision boundary,
+rather than changing the
+
+98
+00:06:45,181 --> 00:06:46,192
+source resolution.
+
+99
+00:06:47,400 --> 00:06:51,796
+For each hour, actual generation is the
+arithmetic mean of the observations at
+
+100
+00:06:51,796 --> 00:06:53,656
+the hour and thirty minutes past.
+
+101
+00:06:53,764 --> 00:06:58,285
+Those are equal-duration average-power readings,
+so their mean gives hourly
+
+102
+00:06:58,285 --> 00:06:59,370
+average megawatts.
+
+103
+00:06:59,479 --> 00:07:03,397
+If either reading is missing, the hourly actual
+is missing too.
+
+104
+00:07:03,505 --> 00:07:08,396
+The metric function uses only rows with both a
+forecast and an actual value.
+
+105
+00:07:08,505 --> 00:07:12,940
+It calculates signed forecast-minus-actual
+errors from unrounded inputs.
+
+106
+00:07:13,049 --> 00:07:16,366
+Daily and monthly summaries use the same
+alignment.
+
+107
+00:07:16,475 --> 00:07:21,289
+WAPE returns no value when its denominator is
+zero, rather than inventing a
+
+108
+00:07:21,289 --> 00:07:21,995
+percentage.
+
+109
+00:07:22,104 --> 00:07:25,191
+Missing observations remain visible in coverage.
+
+110
+00:07:26,400 --> 00:07:31,539
+The Python tests cover the month boundary,
+exact-cutoff eligibility, later-
+
+111
+00:07:31,539 --> 00:07:36,403
+publication exclusion, missing forecasts, actual
+alignment, conflicting
+
+112
+00:07:36,403 --> 00:07:39,829
+duplicates, coverage, and hand-calculated
+metrics.
+
+113
+00:07:39,938 --> 00:07:42,294
+They also exercise the API.
+
+114
+00:07:42,403 --> 00:07:47,269
+After building the frontend, I ran the existing
+suite: all sixteen tests
+
+115
+00:07:47,269 --> 00:07:47,742
+passed.
+
+116
+00:07:47,851 --> 00:07:53,274
+The four frontend CSV tests passed as well,
+covering field mapping, missing
+
+117
+00:07:53,274 --> 00:07:56,745
+values, escaping, and scenario-specific exports.
+
+118
+00:07:56,854 --> 00:07:59,734
+The production frontend build also completed.
+
+119
+00:07:59,843 --> 00:08:04,455
+These checks support the replay and export
+behavior; they don't establish that
+
+120
+00:08:04,455 --> 00:08:09,067
+the source datasets contain identical assets, or
+that the application predicts
+
+121
+00:08:09,067 --> 00:08:10,191
+financial outcomes.
+
+122
+00:08:11,400 --> 00:08:16,056
+The Dockerfile uses a Node stage to build the
+frontend, then copies it into a
+
+123
+00:08:16,056 --> 00:08:19,382
+Python runtime alongside FastAPI and the
+archived data.
+
+124
+00:08:19,491 --> 00:08:23,812
+Docker Compose exposes the combined application
+on port eight thousand.
+
+125
+00:08:23,921 --> 00:08:28,015
+The README documents that route and the separate
+development servers.
+
+126
+00:08:28,124 --> 00:08:32,805
+Vercel uses a different arrangement: the
+configuration declares FastAPI and
+
+127
+00:08:32,805 --> 00:08:37,611
+Vite services, routes API paths to the backend
+first, then routes other paths
+
+128
+00:08:37,611 --> 00:08:38,610
+to the frontend.
+
+129
+00:08:38,718 --> 00:08:41,190
+The deployed dashboard is accessible.
+
+130
+00:08:41,299 --> 00:08:45,607
+I haven't launched Docker or performed a
+deployment during this review, so I'm
+
+131
+00:08:45,607 --> 00:08:49,915
+describing the checked-in configuration, not
+claiming an additional deployment
+
+132
+00:08:49,915 --> 00:08:50,191
+test.
+
+133
+00:08:51,400 --> 00:08:55,975
+The core of Gridline is a traceable comparison:
+archived source records, an
+
+134
+00:08:55,975 --> 00:09:00,734
+explicit decision cutoff, next-day delivery, and
+metrics computed from aligned
+
+135
+00:09:00,734 --> 00:09:01,527
+observations.
+
+136
+00:09:01,632 --> 00:09:06,514
+The interface makes the selected forecast,
+coverage, and limitations visible
+
+137
+00:09:06,514 --> 00:09:07,092
+together.
+
+138
+00:09:07,197 --> 00:09:11,445
+Its boundaries are equally clear: hourly source
+resolution, uncertain
+
+139
+00:09:11,445 --> 00:09:15,078
+population equivalence, and prototype auction-
+time cutoffs.
+
+140
+00:09:15,184 --> 00:09:19,496
+Those are the points I'd validate before
+extending the analysis to procurement
+
+141
+00:09:19,496 --> 00:09:20,049
+decisions.
+
+142
+00:09:20,154 --> 00:09:23,750
+That completes the product demonstration and
+technical review.
+
+143
+00:09:23,855 --> 00:09:27,789
+The screen content comes from the real
+application and repository; the
+
+144
+00:09:27,789 --> 00:09:29,195
+narration is AI-assisted.
