@@ -1,5 +1,7 @@
 # Short actual-application walkthrough
 
+The latest local media revision is approximately **2:15**, with an 11.4-second user-confirmed recorded passage inserted near the beginning. The surrounding narration is retained, app footage is retimed at that passage, and optional captions are updated in `captions-with-recorded-voice.srt`. The audio was processed locally without cloning or uploading the recording. The final export passed full decode and an audio comparison confirmed the recorded clip is present. Personal recordings and generated MP4s are not committed here.
+
 The revised video is 2:10 and shows the running deployment at https://gridlines-beta.vercel.app/ throughout. Real interactions include selecting January 10, opening the hourly values and publication table, navigating Daily accuracy, opening a row, selecting January 31 for February 1 delivery, and reading Method & sources.
 
 The revision removes added “Client demo” and “Technical review” banners, title cards, code slides and presentation-style closing cards. The user explicitly approved replacing the local Windows voice with a more natural Indian-English catalog voice from HeyGen. Narration and editing are AI-assisted; no voice clone or personal presenter is used.
