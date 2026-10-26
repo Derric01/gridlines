@@ -1,5 +1,7 @@
 # Gridline demonstration
 
+The preferred revision is now the **2:10 actual-application walkthrough** in [`short/`](short/README.md). It uses fresh recordings of the running deployment, a conversational Indian-English HeyGen voice and optional captions. Added presentation banners, title cards and code slides have been removed. The earlier 9:30 materials below are retained as the full-length reference.
+
 This folder contains the timecoded narration, English subtitles and production plan for a 9:30 demonstration: a 4:50 client walkthrough followed by a 4:40 technical review. The final user preference is narration only, using a local Indian-English synthetic voice. No personal presenter or voice clone is used.
 
 The MP4 is a separate generated deliverable and is not committed here. It combines genuine captured views from https://gridlines-beta.vercel.app/ with readable excerpts from reviewed commit `00a6cd043021be32e44cd5977700c5e6fd15e43b`. Captured UI frames are held during explanation; source excerpts are rendered with paths and line numbers. This is an edited demonstration, not an unedited live presentation.

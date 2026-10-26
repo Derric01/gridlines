@@ -1,0 +1,240 @@
+1
+00:00:00,256 --> 00:00:01,543
+Hi, I'm Derric.
+
+2
+00:00:01,664 --> 00:00:02,589
+This is Gridline.
+
+3
+00:00:02,773 --> 00:00:04,189
+Let me show you how I'd use it
+
+4
+00:00:04,181 --> 00:00:06,066
+to check a wind forecast against what actually
+
+5
+00:00:06,229 --> 00:00:06,877
+happened.
+
+6
+00:00:07,296 --> 00:00:09,949
+The dashboard covers decisions made during January twenty
+
+7
+00:00:10,027 --> 00:00:10,657
+twenty-six.
+
+8
+00:00:10,846 --> 00:00:12,688
+A decision on one day is matched with
+
+9
+00:00:12,681 --> 00:00:14,523
+generation on the following day.
+
+10
+00:00:14,814 --> 00:00:17,125
+Right now, the selected cutoff is three thirty
+
+11
+00:00:17,203 --> 00:00:18,896
+in the afternoon, London time.
+
+12
+00:00:19,123 --> 00:00:20,773
+I'll pick the tenth of January.
+
+13
+00:00:21,001 --> 00:00:22,808
+The delivery date changes to the eleventh.
+
+14
+00:00:22,980 --> 00:00:25,675
+The green line is the forecast available at
+
+15
+00:00:25,838 --> 00:00:26,699
+decision time.
+
+16
+00:00:26,863 --> 00:00:29,622
+The dashed line is the actual generation.
+
+17
+00:00:29,934 --> 00:00:32,033
+You can see that the forecast is consistently
+
+18
+00:00:32,153 --> 00:00:32,918
+higher here.
+
+19
+00:00:33,113 --> 00:00:35,424
+If I open the values underneath, I can
+
+20
+00:00:35,417 --> 00:00:37,984
+check the actual numbers and when that forecast
+
+21
+00:00:38,019 --> 00:00:38,859
+was published.
+
+22
+00:00:39,086 --> 00:00:41,077
+That publication time matters.
+
+23
+00:00:41,305 --> 00:00:43,445
+A later revision can't be used to judge
+
+24
+00:00:43,481 --> 00:00:44,663
+an earlier decision.
+
+25
+00:00:44,935 --> 00:00:47,289
+The monthly mean absolute error is about eighteen
+
+26
+00:00:47,281 --> 00:00:50,531
+hundred and seventy-three megawatts, and the bias is
+
+27
+00:00:50,567 --> 00:00:51,321
+positive.
+
+28
+00:00:51,676 --> 00:00:54,713
+So in this snapshot, forecasts generally sit above
+
+29
+00:00:54,791 --> 00:00:55,663
+the actuals.
+
+30
+00:00:55,923 --> 00:00:58,960
+These are forecast-error measures, rather than a calculation
+
+31
+00:00:59,166 --> 00:01:00,560
+of money saved.
+
+32
+00:01:00,958 --> 00:01:03,781
+To find the days worth investigating, I go
+
+33
+00:01:03,773 --> 00:01:05,103
+to Daily accuracy.
+
+34
+00:01:05,352 --> 00:01:07,749
+The tenth of January stands out, with an
+
+35
+00:01:07,784 --> 00:01:10,608
+average error of roughly forty-eight hundred and eighty-one
+
+36
+00:01:10,600 --> 00:01:11,403
+megawatts.
+
+37
+00:01:11,594 --> 00:01:13,734
+I can open that row and go straight
+
+38
+00:01:13,770 --> 00:01:15,292
+back to its chart.
+
+39
+00:01:15,647 --> 00:01:17,873
+The date selection also handles the end of
+
+40
+00:01:17,866 --> 00:01:20,817
+the month: the thirty-first of January maps to
+
+41
+00:01:20,810 --> 00:01:22,758
+delivery on the first of February.
+
+42
+00:01:23,071 --> 00:01:25,169
+One detail I wanted to make clear is
+
+43
+00:01:25,204 --> 00:01:26,376
+the time resolution.
+
+44
+00:01:26,638 --> 00:01:28,694
+On Method and sources, you can see that
+
+45
+00:01:28,686 --> 00:01:31,936
+the forecasts are hourly, while the actual observations
+
+46
+00:01:32,142 --> 00:01:33,472
+are half-hourly.
+
+47
+00:01:33,806 --> 00:01:36,715
+The app averages both half-hours for an hourly
+
+48
+00:01:36,835 --> 00:01:37,632
+comparison.
+
+49
+00:01:37,945 --> 00:01:40,862
+It doesn't measure half-hour forecast accuracy.
+
+50
+00:01:41,119 --> 00:01:43,388
+The two datasets also aren't proven to cover
+
+51
+00:01:43,509 --> 00:01:45,159
+exactly the same wind assets.
+
+52
+00:01:45,386 --> 00:01:48,209
+Underneath, it's a React frontend with a Fast
+
+53
+00:01:48,287 --> 00:01:51,253
+A P I backend reading archived Elexon records.
+
+54
+00:01:51,474 --> 00:01:54,511
+The important safeguard is selecting only forecast publications
+
+55
+00:01:54,759 --> 00:01:56,175
+available by the cutoff.
+
+56
+00:01:56,466 --> 00:01:59,161
+The existing Python and CSV checks passed during
+
+57
+00:01:59,239 --> 00:01:59,953
+validation.
+
+58
+00:02:00,183 --> 00:02:02,580
+That's Gridline: I can start with the monthly
+
+59
+00:02:02,615 --> 00:02:05,396
+picture, find a difficult day, and inspect the
+
+60
+00:02:05,389 --> 00:02:07,948
+forecast and source details behind it.
+
